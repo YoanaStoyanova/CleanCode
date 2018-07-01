@@ -54,7 +54,7 @@ public class Square implements Shape {
 		Double centerY = (this.points[lowerLeft].getY() + this.points[upperRight].getY()) / 2;
 		Point center = new Point(centerX, centerY);
 		Double radius = Point.calcLineLength(this.points[lowerLeft], center);
-		return new Circle();
+		return new Circle(center, radius);
 
 	}
 

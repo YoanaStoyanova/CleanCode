@@ -26,18 +26,19 @@ public class Point {
 
 	Double getY() {
 		return this.y;
-	} 
-	
+	}
+
 	public void translatePoint(Double x, Double y) {
 		this.x += x;
 		this.y += y;
 	}
-	
+
 	public void rotatePoint(Double degree) {
-		this.x = this.x * Math.cos(Math.toRadians(degree)) - this.y * Math.sin(Math.toRadians(degree));
+		Double temp = this.x * Math.cos(Math.toRadians(degree)) - this.y * Math.sin(Math.toRadians(degree));
 		this.y = this.x * Math.sin(Math.toRadians(degree)) + this.y * Math.cos(Math.toRadians(degree));
+		this.x = temp;
 	}
-	
+
 	public static Double calcLineLength(Point p1, Point p2) {
 		return Math.sqrt(
 				(p2.getX() - p1.getX()) * (p2.getX() - p1.getX()) + (p2.getY() - p1.getY()) * (p2.getY() - p1.getY()));

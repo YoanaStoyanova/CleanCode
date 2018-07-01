@@ -19,6 +19,11 @@ public class Rectangle implements Shape {
 		this.points[upperLeft] = new Point(lowerLeftPoint.getX(), upperRightPoint.getY());
 		this.width = this.points[lowerRight].getX() - this.points[lowerLeft].getX();
 		this.height = this.points[upperLeft].getY() - this.points[lowerLeft].getY();
+		
+		for(Point p : points) {
+			System.out.print("< "+p.getX()+", "+p.getY()+" > ");
+		}
+		System.out.println();
 	}
 
 	@Override
@@ -60,7 +65,7 @@ public class Rectangle implements Shape {
 		Double centerY = (this.points[lowerLeft].getY() + this.points[upperRight].getY()) / 2;
 		Point center = new Point(centerX, centerY);
 		Double radius = Point.calcLineLength(this.points[lowerLeft], center);
-		return new Circle();
+		return new Circle(center, radius);
 	}
 
 	@Override
@@ -69,6 +74,10 @@ public class Rectangle implements Shape {
 			p.rotatePoint(degree);
 		}
 
+		for(Point p : points) {
+			System.out.print("< "+p.getX()+", "+p.getY()+" > ");
+		}
+		System.out.println();
 	}
 
 }
