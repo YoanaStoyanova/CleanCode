@@ -24,10 +24,6 @@ public class Triangle implements Shape {
 		this.sideAB = sideAB;
 		this.sideBC = sideBC;
 		this.sideAC = sideAC;
-		// System.out.println(this.shapeType + " Sides: " + sideAB + sideBC + sideAC);
-		// for (Point p : points) {
-		// System.out.print("< " + p.getX() + ", " + p.getY() + " > ");
-		// }
 
 	}
 
@@ -106,6 +102,13 @@ public class Triangle implements Shape {
 			}
 		}
 		return true;
+	}
+
+	@Override
+	public void drawShape() {
+		// stubbed method
+		System.out.println("Drawing " + this.shapeType);
+
 	}
 
 }

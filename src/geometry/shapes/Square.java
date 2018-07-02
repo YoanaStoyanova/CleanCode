@@ -81,4 +81,11 @@ public class Square implements Shape {
 		return true;
 	}
 
+	@Override
+	public void drawShape() {
+		// stubbed method
+		System.out.println("Drawing " + this.shapeType);
+
+	}
+
 }

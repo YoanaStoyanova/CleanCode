@@ -58,4 +58,11 @@ public class Circle implements Shape {
 		return Validators.positive(radius);
 	}
 
+	@Override
+	public void drawShape() {
+		//stubbed method
+		System.out.println("Drawing " + this.shapeType);
+		
+	}
+
 }
