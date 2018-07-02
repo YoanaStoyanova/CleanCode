@@ -7,7 +7,7 @@ import java.util.Random;
  * @author Joana
  *
  */
-public class AvgShapeSizeFactory implements ShapeFactory {
+public class AvgSizeShapeFactory implements ShapeFactory {
 
 	private static String[] shapes = { "CIRCLE", "TRIANGLE", "RECTANGLE", "SQUARE" };
 	private int avgShapeSize = 3;
