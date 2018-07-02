@@ -1,13 +1,20 @@
+package geometry.shapes;
 import java.util.Random;
 
-public class AvgShapeSizeFactory implements ShapeFactory {
+/**
+ * Class generating random shapes of approximately similar size.
+ * 
+ * @author Joana
+ *
+ */
+public class AvgSizeShapeFactory implements ShapeFactory {
 
-	private static String[] shapes = { "CIRLCE", "TRIANGLE", "RECTANGLE", "SQUARE" };
-	private static int avgShapeSize = 3;
+	private static String[] shapes = { "CIRCLE", "TRIANGLE", "RECTANGLE", "SQUARE" };
+	private int avgShapeSize = 3;
 	private static int MAX_X_COORD = 50;
 	private static int MAX_Y_COORD = 50;
 
-	public static void setAvgShapeSize(int size) {
+	public void setAvgShapeSize(int size) {
 		avgShapeSize = size;
 	}
 
@@ -37,6 +44,7 @@ public class AvgShapeSizeFactory implements ShapeFactory {
 		default:
 			throw new IllegalArgumentException(shapeType + " is not a valid shape type");
 		}
+
 		return shape;
 	}
 
@@ -46,34 +54,36 @@ public class AvgShapeSizeFactory implements ShapeFactory {
 		Double Y = (double) coordinates.nextInt(MAX_Y_COORD);
 
 		Point center = new Point(X, Y);
-		Double radius = coordinates.nextGaussian() + avgShapeSize;
+		Double radius = Math.ceil(new Random().nextGaussian() + avgShapeSize);
+		System.out.println("radius is: " + radius);
 		return new Circle(center, radius);
 	}
 
 	private Square constrRandomSquare() {
 
-		Double sideLength = new Random().nextGaussian() + avgShapeSize;
+		Double sidesLength = Math.ceil(new Random().nextGaussian() + avgShapeSize);
 		Point lowerLeft = constrRandomPoint();
-		Point upperRight = new Point(lowerLeft.getX() + sideLength, lowerLeft.getY() + sideLength);
-
+		Point upperRight = new Point(lowerLeft.getX() + sidesLength, lowerLeft.getY() + sidesLength);
+		
+		System.out.println("sidesLength is: " + sidesLength);
 		return new Square(lowerLeft, upperRight);
 
 	}
 
 	private Rectangle constrRandomRectangle() {
-		Double width = new Random().nextGaussian() + avgShapeSize;
-		Double height = new Random().nextGaussian() + avgShapeSize;
+		Double width = Math.ceil(new Random().nextGaussian() + avgShapeSize);
+		Double height = Math.ceil(new Random().nextGaussian() + avgShapeSize);
 
 		Point lowerLeft = constrRandomPoint();
 		Point upperRight = new Point(lowerLeft.getX() + width, lowerLeft.getY() + height);
-
+		System.out.println("sidesLength is: " + width + " " + height);
 		return new Rectangle(lowerLeft, upperRight);
 
 	}
 
 	private Triangle constrRandomTriangle() {
-		Double sideAB = new Random().nextGaussian() + avgShapeSize;
-		Double sideBC = new Random().nextGaussian() + avgShapeSize;
+		Double sideAB = Math.ceil(new Random().nextGaussian() + avgShapeSize);
+		Double sideBC = Math.ceil(new Random().nextGaussian() + avgShapeSize);
 		Point A = constrRandomPoint();
 		Point B = new Point(A.getX() + sideAB, A.getY());
 		Point C = new Point(B.getX(), B.getY() + sideBC);

@@ -1,3 +1,4 @@
+package geometry.shapes;
 
 public interface Shape {
 
@@ -14,5 +15,7 @@ public interface Shape {
 	public Circle circumscribedCircle();
 
 	public void rotateShape(Double degree);
+	
+	public void drawShape();
 
 }

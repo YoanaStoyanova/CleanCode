@@ -1,4 +1,11 @@
+package geometry.shapes;
 
+/**
+ * This class represents a line by its equation
+ * 
+ * @author Joana
+ *
+ */
 public class Line {
 
 	private Double a;
@@ -18,16 +25,27 @@ public class Line {
 		this.c = a * (p2.getX()) + b * (p2.getY());
 	}
 
+	/**
+	 * Method calculates equation of new line perpendicular to current line in given
+	 * point p.
+	 * 
+	 * @param p	is point on line
+	 *            
+	 * 
+	 * @return perpendicular line
+	 */
 	public Line perpendicLineInPoint(Point p) {
-		if (isOnLine(p)) {
-			Double c = -this.b * p.getX() + this.a * p.getY();
-			return new Line(-this.b, this.a, c);
-		} else {
-			assert (false);
-			return null;
-		}
+		Double c = -this.b * p.getX() + this.a * p.getY();
+		return new Line(-this.b, this.a, c);
+
 	}
 
+	/**
+	 * Method calculates the point in which current line intersects with other line
+	 * 
+	 * @param other
+	 * @return point of intersection
+	 */
 	public Point lineIntersection(Line other) {
 		Double determinant = this.a * other.b - other.a * this.b;
 		if (determinant == 0) {
@@ -38,11 +56,6 @@ public class Line {
 			Double y = (this.a * other.c - other.a * this.c);
 			return new Point(x, y);
 		}
-	}
-
-	private boolean isOnLine(Point p) {
-		assert (false);
-		return true;
 	}
 
 }

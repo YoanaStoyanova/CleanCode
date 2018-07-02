@@ -1,3 +1,4 @@
+package geometry.shapes;
 
 public class Point {
 	private Double x;
@@ -7,24 +8,24 @@ public class Point {
 		this.x = this.y = 0.0;
 	}
 
-	Point(Double x, Double y) {
+	public Point(Double x, Double y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	void setX(Double x) {
+	public void setX(Double x) {
 		this.x = x;
 	}
 
-	Double getX() {
+	public Double getX() {
 		return this.x;
 	}
 
-	void setY(Double y) {
+	public void setY(Double y) {
 		this.y = y;
 	}
 
-	Double getY() {
+	public Double getY() {
 		return this.y;
 	}
 
@@ -42,6 +43,26 @@ public class Point {
 	public static Double calcLineLength(Point p1, Point p2) {
 		return Math.sqrt(
 				(p2.getX() - p1.getX()) * (p2.getX() - p1.getX()) + (p2.getY() - p1.getY()) * (p2.getY() - p1.getY()));
+	}
+
+	public static boolean onSameLine(Point[] points) {
+		boolean verticalLine = true;
+		boolean horizontalLine = true;
+		for (int i = 0; i < points.length - 1; ++i) {
+			if (points[i].x.compareTo(points[i + 1].x) != 0) {
+				verticalLine = false;
+			}
+
+			if (points[i].y.compareTo(points[i + 1].y) != 0) {
+				horizontalLine = false;
+			}
+
+			if (!verticalLine && !horizontalLine) {
+				break;
+			}
+		}
+
+		return (verticalLine || horizontalLine);
 	}
 
 	@Override
