@@ -1,3 +1,7 @@
+package geometry.shapes;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Triangle implements Shape {
 
@@ -10,15 +14,21 @@ public class Triangle implements Shape {
 	private Double sideBC;
 	private Double sideAC;
 
-	Triangle(Point A, Point B, Point C) {
-		this.points = new Point[] { A, B, C };
-		this.sideAB = Point.calcLineLength(A, B);
-		this.sideBC = Point.calcLineLength(B, C);
-		this.sideAC = Point.calcLineLength(A, C);
+	public Triangle(Point A, Point B, Point C) {
+		Double sideAB = Point.calcLineLength(A, B);
+		Double sideBC = Point.calcLineLength(B, C);
+		Double sideAC = Point.calcLineLength(A, C);
+		validate(A, B, C);
 
-		assert (sideAB + sideBC < sideAC);
-		assert (sideBC + sideAC < sideAB);
-		assert (sideAB + sideAC < sideBC);
+		this.points = new Point[] { A, B, C };
+		this.sideAB = sideAB;
+		this.sideBC = sideBC;
+		this.sideAC = sideAC;
+		// System.out.println(this.shapeType + " Sides: " + sideAB + sideBC + sideAC);
+		// for (Point p : points) {
+		// System.out.print("< " + p.getX() + ", " + p.getY() + " > ");
+		// }
+
 	}
 
 	@Override
@@ -39,8 +49,9 @@ public class Triangle implements Shape {
 		Double areaAPC = new Triangle(points[A], P, points[C]).getArea();
 		Double areaBPC = new Triangle(points[B], P, points[C]).getArea();
 		Double areaAPB = new Triangle(points[A], P, points[B]).getArea();
+		Double area = new BigDecimal(areaAPC + areaBPC + areaAPB).setScale(3, RoundingMode.HALF_EVEN).doubleValue();
 
-		if (areaAPC + areaBPC + areaAPB > this.getArea()) {
+		if (area.compareTo(this.getArea()) > 0) {
 			return false;
 		} else {
 			return true;
@@ -63,17 +74,16 @@ public class Triangle implements Shape {
 	@Override
 	public Circle circumscribedCircle() {
 		Line bisectorAB = sideBisector(points[A], points[B]);
-		Line bisectorBC = sideBisector(points[B], points[C]);		
+		Line bisectorBC = sideBisector(points[B], points[C]);
 		Point center = bisectorAB.lineIntersection(bisectorBC);
 		Double radius = Point.calcLineLength(center, points[A]);
-		
+		System.out.println(" Center " + center.getX() + " " + center.getY());
 		return new Circle(center, radius);
 	}
 
 	private Line sideBisector(Point p1, Point p2) {
 		Line lineAB = new Line(p1, p2);
-		Point midAB = new Point((p1.getX() + p2.getX()) / 2,
-				(p1.getY() + p2.getY()) / 2);
+		Point midAB = new Point((p1.getX() + p2.getX()) / 2, (p1.getY() + p2.getY()) / 2);
 		return lineAB.perpendicLineInPoint(midAB);
 	}
 
@@ -83,6 +93,19 @@ public class Triangle implements Shape {
 			p.rotatePoint(degree);
 		}
 
+	}
+
+	private boolean validate(Point A, Point B, Point C) {
+
+		if (A.equals(B) || B.equals(C) || C.equals(A)) {
+			throw new IllegalArgumentException("Points are not distinct");
+		} else {
+
+			if (Point.onSameLine(new Point[] { A, B, C })) {
+				throw new IllegalArgumentException("Points on same line");
+			}
+		}
+		return true;
 	}
 
 }

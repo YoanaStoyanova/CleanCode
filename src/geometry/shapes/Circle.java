@@ -1,3 +1,4 @@
+package geometry.shapes;
 
 public class Circle implements Shape {
 
@@ -5,8 +6,8 @@ public class Circle implements Shape {
 	private Double radius;
 	private String shapeType = "Circle";
 
-	Circle(Point center, Double radius) {
-		assert (radius > 0);
+	public Circle(Point center, Double radius) {
+		validate(center, radius);
 		this.center = center;
 		this.radius = radius;
 	}
@@ -24,6 +25,7 @@ public class Circle implements Shape {
 	@Override
 	public boolean isInShape(Point p) {
 		Double lengthTo = Point.calcLineLength(this.center, p);
+
 		if (lengthTo <= this.radius) {
 			return true;
 		} else {
@@ -50,6 +52,10 @@ public class Circle implements Shape {
 	@Override
 	public void rotateShape(Double degree) {
 		this.center.rotatePoint(degree);
+	}
+
+	private boolean validate(Point center, Double radius) {
+		return Validators.positive(radius);
 	}
 
 }
